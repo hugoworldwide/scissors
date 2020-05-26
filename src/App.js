@@ -62,12 +62,16 @@ const choices = {
 function App() {
   const [playerChoice, setPlayerChoice] = useState({});
   const [computerChoice, setComputerChoice] = useState({});
-  const [prompt, setGamePrompt] = useState("Hugo!");
+  const [prompt, setGamePrompt] = useState("Play the Game!");
   const [previousWinner, setPreviousWinner] = useState(null);
+  const [history, setHistory] = useState([])
 
 
   const onPlayerChoose = playerChoice => {
-    const [result, compChoice] = getRoundOutcome(playerChoice);
+    const resultAndComChoice = getRoundOutcome(playerChoice);
+    let result = resultAndComChoice[0]
+    let compChoice = resultAndComChoice[1]
+
     console.log(result, compChoice)
 
     const newUserChoice = CHOICES[playerChoice];
@@ -84,15 +88,23 @@ function App() {
     } else {
       setPreviousWinner("Tie");
     }
+    console.log(result)
+    setGamePrompt(result)
+    history.push(result)
+    setHistory(history)
+
 
   };
   console.log(playerChoice, computerChoice)
+  console.log(history, "this is history array")
 
   return (
     <div className="App">
       <div className="container">
         <div className="row mb-3">
           <div className="col-md-8 themed-grid-col">
+            <div $></div>
+
 
             <ChoiceCard title="You"
               previousWinner={previousWinner}
@@ -119,6 +131,11 @@ function App() {
               previousWinner={previousWinner}
 
               imgURL={computerChoice && computerChoice.url} />
+          </div>
+          <div className="col-md-4 themed-grid-col">
+            {
+              history.map(elm => <li>{elm}</li>)
+            }
           </div>
         </div>
       </div>

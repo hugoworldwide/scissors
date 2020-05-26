@@ -37,7 +37,6 @@ export default function ChoiceCard(props) {
             <h1>{props.title}</h1>
             <div>{result}</div>
             <img src={props.imgURL || DEFAULT_IMG} alt={props.title} />
-            <h3>{props.winner ? 'Won' : 'Loss'}</h3>
 
         </div>
     )
